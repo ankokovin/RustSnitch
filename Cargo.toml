@@ -1,5 +1,5 @@
 [package]
-name = "RustSnitch"
+name = "rust_snitch"
 version = "0.1.0"
 authors = ["Aleksei Kokovin <kokovin@proitr.ru>"]
 edition = "2018"
