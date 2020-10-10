@@ -1,4 +1,3 @@
-use assert_cmd::Command;
 #[cfg(test)]
 mod tests {
     use crate::{about};
@@ -43,7 +42,7 @@ mod tests {
     }
 
     #[test]
-    fn test_read_line() {
+    fn test_aho_defaults() {
         let mut cmd = Command::cargo_bin("rust_snitch").unwrap();
         cmd.arg("-f")
             .arg("./test-texts/test.txt")
@@ -51,7 +50,10 @@ mod tests {
             .assert()
             .success()
             .stderr(predicates::str::is_empty())
-            .stdout("Hello, World!\n1\n\n")
+            .stdout(
+                predicates::str::contains("CommandMatch { line: \"TODO: Hello, World!\", line_idx: 0, file: \"./test-texts/test.txt\" }")
+                    .and(
+                        predicates::str::contains("CommandMatch { line: \"efsfse rgs TODO lol\", line_idx: 0, file: \"./test-texts/test.txt\" }")))
             .code(0);
     }
 }
