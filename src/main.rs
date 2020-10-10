@@ -1,6 +1,7 @@
 mod tests;
-
-use std::env;
+extern crate clap;
+extern crate assert_cmd;
+use clap::{Arg, App, SubCommand, AppSettings};
 use std::process::exit;
 use std::fs::File;
 use std::path::Path;
@@ -42,29 +43,32 @@ fn read_lines<P>(filename: P) -> io::Result<io::Lines<io::BufReader<File>>>
 
 }
 
-fn run(args: Vec<String>) -> Result<String, String> {
-    if args.len() == 1 {
-        println!("I expected some args!");
-        return about();
-    }
-    if args[1] == "-f" {
-        if args.len() == 2 {
-            return Err("Expected path to file".to_string())
-        }
-        return read_file(args[2..].to_owned());
-    }
-    return Err("Could not parse args!".to_string());
-}
-
 fn main() {
-    let args: Vec<String> = env::args().collect();
-    match run(args) {
-        Ok(message) => {
-            println!("{}", message);
-        },
-        Err(error_message) => {
-            println!("{}", error_message);
-            exit(1);
+    let matches = App::new("RustSnitch")
+        .version("0.1")
+        .author("Kokovin Aleksei <rycarok@gmail.com>")
+        .about(about().unwrap().as_str())
+        .setting(AppSettings::ArgRequiredElseHelp)
+        .arg(Arg::with_name("files")
+            .short("f")
+            .value_name("files")
+            .help("Select files to parse. Separate by commas.")
+            .multiple(true)
+            .takes_value(true)).get_matches();
+    if matches.value_of("files").is_some() {
+        let result = read_file(
+            matches.value_of("files").unwrap()
+                .split(",").map(|x| x.to_string()).collect());
+        match result {
+            Ok(message) => {
+                println!("{}", message)
+            },
+            Err(error_message) => {
+                eprintln!("{}", error_message);
+                exit(1)
+            }
         }
+    } else {
+
     }
 }

@@ -9,4 +9,4 @@ Secondly, I want to learn Rust. At least on some minimal level, but still.
 
 Thirdly, I'm sure there could be other uses, other "hooks" for comments. Thus I want some more modularity on that aspect. Even if I am not sure what those could be.
 
-Lastly, I want it to be usefull for stuff like CI. I wasted a day on old project, trying to mary it to Github Actions, with no success. Sure, I'm just dumb and have not enought experience, but still. This one is more like a feature requirement.
+Lastly, I want it to be useful for stuff like CI. I wasted a day on old project, trying to mary it to Github Actions, with no success. Sure, I'm just dumb and have not enought experience, but still. This one is more like a feature requirement.
