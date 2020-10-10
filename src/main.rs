@@ -1,6 +1,7 @@
 mod tests;
 extern crate clap;
-use clap::{Arg, App, SubCommand};
+extern crate assert_cmd;
+use clap::{Arg, App, SubCommand, AppSettings};
 use std::process::exit;
 use std::fs::File;
 use std::path::Path;
@@ -47,15 +48,16 @@ fn main() {
         .version("0.1")
         .author("Kokovin Aleksei <rycarok@gmail.com>")
         .about(about().unwrap().as_str())
+        .setting(AppSettings::ArgRequiredElseHelp)
         .arg(Arg::with_name("files")
             .short("f")
             .value_name("files")
             .help("Select files to parse. Separate by commas.")
             .multiple(true)
             .takes_value(true)).get_matches();
-    if matches.value_of("file").is_some() {
+    if matches.value_of("files").is_some() {
         let result = read_file(
-            matches.value_of("file").unwrap()
+            matches.value_of("files").unwrap()
                 .split(",").map(|x| x.to_string()).collect());
         match result {
             Ok(message) => {
@@ -67,6 +69,6 @@ fn main() {
             }
         }
     } else {
-        //todo?
+
     }
 }
