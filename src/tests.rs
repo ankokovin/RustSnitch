@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod tests {
-    use crate::{about, run};
+    use crate::{about};
 
     #[test]
     fn is_works() {
@@ -13,7 +13,7 @@ mod tests {
         assert!(res.is_ok());
         assert!(!res.unwrap().is_empty());
     }
-
+/*
     #[test]
     fn test_no_args() {
         let about_res = about();
@@ -41,5 +41,5 @@ mod tests {
         let message = res.unwrap();
         assert!(!message.is_empty());
         assert_eq!("Hello, World!\n1\n", message);
-    }
+    }*/
 }
